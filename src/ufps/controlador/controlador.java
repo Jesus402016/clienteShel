@@ -24,7 +24,7 @@ public class controlador extends Thread {
  
    
  public controlador(String nombre){
-   this.chat=new chat(nombre);
+   this.chat=new chat(nombre,this);
  }
  
    @Override
@@ -34,23 +34,24 @@ public class controlador extends Thread {
               System.out.print("");
               if (this.chat.getContectados()) {
                    try {
-                  if(nombre.equals("")){ 
+                  if(getNombre().equals("")){ 
                   System.out.print("Con quien desea chatear?");
-                  nombre=br.readLine();
+                        setNombre(br.readLine());
                           }                  
-                      System.out.print("Nuevo Mensaje:");
+                     System.out.print("Nuevo Mensaje:");
                       String mensaje = br.readLine();
-                      enviarMensaje(mensaje, nombre);
+                      enviarMensaje(mensaje, getNombre());
                   } catch (IOException ex) {
-                      nombre="";
+                      setNombre("");
                       Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
                   }
               }
         }
  }
+ 
 //Metodo para enviar Mensaje al destino 
  public void enviarMensaje(String mensaje,String nombre ){
-     this.nombre=nombre;
+     this.setNombre(nombre);
      
        try {
            this.chat.enviarMensaje(mensaje, nombre);
@@ -61,6 +62,20 @@ public class controlador extends Thread {
  
      
  }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
  
  
     

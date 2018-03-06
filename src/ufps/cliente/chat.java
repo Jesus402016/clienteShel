@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ufps.cliente.DTO.usuario;
+import ufps.controlador.controlador;
 
 /**
  *
@@ -27,12 +28,14 @@ public class chat extends Thread {
     private int puerto=3000;
     private boolean activo;
     private int conectados;
+    private controlador cont;
 
    
     
     
-    public chat(String nombre){
+    public chat(String nombre,controlador con){
        this.usuario=new usuario(nombre);
+       this.cont=con;
        this.start();
     }
     
@@ -83,6 +86,10 @@ public class chat extends Thread {
         
     }
     
+    public void EnviaraTodos(String mensaje){
+        
+    }
+    
     public void escuchar(){
         activo=true;
         while(activo){
@@ -91,7 +98,8 @@ public class chat extends Thread {
                 String list[]=(String [])aux;
                 if(list[0].equals("MENSAJE")){
                 System.out.print("\n"+list[1]+":"+list[3]); 
-               // responder(list[1]);
+                //responder(list[1]);
+                cont.setNombre(list[1]);
                 }
                 else if(list[0].equals("CONECTADOS"))
                   {
@@ -101,6 +109,10 @@ public class chat extends Thread {
                   {
                 System.out.println(list[1]+" "+"Salió");
                   }
+                else if(list[0].equals("CONECTAR"))
+                {
+                    
+                }
             } catch (IOException ex) {
                 System.out.println("se perdio la conexion con el servidor");
                 activo=false;
@@ -132,7 +144,7 @@ public class chat extends Thread {
      
      public void responder(String nombre) throws IOException{       
               
-          System.out.print("Responder:");
+          System.out.print("\n"+"Responder:");
           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
           String mensaje=br.readLine();
           this.enviarMensaje(mensaje,nombre);
