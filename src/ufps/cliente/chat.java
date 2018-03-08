@@ -78,7 +78,7 @@ public class chat extends Thread {
     }
     public void enviarMensaje(String mensaje,String destino) throws IOException{
             String[] c = new String[4];
-            c[0] = "MENSAJE";
+            c[0] = "MENSAJETODOS";
             c[1] = this.usuario.getNombre();
             c[2]=destino;
             c[3]=mensaje;
@@ -98,7 +98,7 @@ public class chat extends Thread {
                 String list[]=(String [])aux;
                 if(list[0].equals("MENSAJE")){
                 System.out.print("\n"+list[1]+":"+list[3]); 
-                //responder(list[1]);
+                 responder(list[1]);
                 cont.setNombre(list[1]);
                 }
                 else if(list[0].equals("CONECTADOS"))
@@ -144,7 +144,7 @@ public class chat extends Thread {
      
      public void responder(String nombre) throws IOException{       
               
-          System.out.print("\n"+"Responder:");
+          System.out.print("\n"+"Nuevo Mensaje:");
           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
           String mensaje=br.readLine();
           this.enviarMensaje(mensaje,nombre);

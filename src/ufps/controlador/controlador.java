@@ -34,11 +34,8 @@ public class controlador extends Thread {
               System.out.print("");
               if (this.chat.getContectados()) {
                    try {
-                  if(getNombre().equals("")){ 
-                  System.out.print("Con quien desea chatear?");
-                        setNombre(br.readLine());
-                          }                  
-                     System.out.print("Nuevo Mensaje:");
+                                  
+                     System.out.print("\n"+"Nuevo Mensaje:"+"");
                       String mensaje = br.readLine();
                       enviarMensaje(mensaje, getNombre());
                   } catch (IOException ex) {
